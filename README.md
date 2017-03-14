@@ -51,6 +51,12 @@ java_set_javahome: false
 
 # install JCE?
 java_install_jce: false
+
+# use internal proxy url for instances behind a firewall
+java_use_proxy: true
+
+# url to use when proxy is true, usually a nexus proxy
+java_proxy_url: 
 ```
 
 For other configurable internals, read `tasks/set-role-variables.yml` file; for example, supported `java_version`/`java_subversion` combinations.
@@ -72,7 +78,7 @@ If you want to install a Java release which is not supported out-of-the-box, you
 
 ### Customized variables, if absolutely necessary
 
-If you have a pre-downloaded `jdk_tarball_file` whose filename cannot be inferred successfully by `tasks/set-role-variables.yml`, you may specify it explicitly: 
+If you have a pre-downloaded `jdk_tarball_file` whose filename cannot be inferred successfully by `tasks/set-role-variables.yml`, you may specify it explicitly:
 
 ```yaml
 # Specify the pre-fetch filename (without tailing .tar.gz or .rpm or .dmg);

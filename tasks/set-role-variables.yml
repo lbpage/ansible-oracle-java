@@ -8,7 +8,15 @@
   set_fact:
     jdk_version: "1.{{ java_version }}.0_{{ java_subversion }}"
 
+- name: set remote java url
+  set_fact:
+    java_url: "{{java_remote_url}}"
+  when: "{{java_use_proxy}} == false"
 
+- name: set proxy java url
+  set_fact:
+    java_url: "{{java_proxy_url}}"
+  when: "{{java_use_proxy}} == true"
 #
 # platform-specific variables
 #
@@ -129,7 +137,7 @@
 
 - name: compose url for downloading file, if necessary
   set_fact:
-    jdk_tarball_url:  "http://download.oracle.com/otn-pub/java/jdk/{{ jdk_version_detail }}/{{ jdk_tarball_file }}"
+    jdk_tarball_url:  "{{ java_url }}/java/jdk/{{ jdk_version_detail }}/{{ jdk_tarball_file }}"
   when: jdk_version_detail is defined
 
 
@@ -151,8 +159,7 @@
 
 - name: set JCE download file
   set_fact:
-    jce_zip_url: "http://download.oracle.com/otn-pub/java/jce/{{ java_version }}/{{ jce_zip_file }}"
-
+    jce_zip_url: "{{java_url}}/java/jce/{{ java_version }}/{{ jce_zip_file }}"
 
 #
 # directories
